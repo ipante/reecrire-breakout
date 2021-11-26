@@ -5,19 +5,27 @@ La documentation de Kaboom : https://kaboomjs.com/
 Des codes d'exemple : https://kaboomjs.com/play?demo=add
 
 Kaboom dispose de plusieurs fonctions pour créer de l'alétoire !
-rand(), mais aussi randi(), randSeed...
-sans compter l'utilisation 
+rand(), mais aussi randi(), choose(), chance(), randSeed()...
+Et il y a bien d'autres manières de provoquer de l'incertitude !
 
 Bon codage !
 
-Signé, Isaac Pante
+Isaac Pante
+
 */
 
 // l'objet Kaboom
 // définissez les propriétés générales ici
 kaboom({
-	background: [0,0,0]
+	background: [0,0,0],
+	width : 1200,
+	height : 800
 })
+
+// définir un chemin racine pour les ressources
+// Ctte étape est facultative, elle sert juste
+// à raccourcir les chemins suivants
+loadRoot("assets/")
 
 // charger les images
 loadSprite("tuile","images/tuile.png")
@@ -35,12 +43,36 @@ scene("accueil", () => {
 	const musique = play("musique")
 	add([
 		// créer un objet texte
-		text("appuyez sur la barre d'espace"),
+		// le second paramètre permet de modifier son style
+		text("Appuyez sur la barre d'espace pour jouer !",{
+			width : 800
+		}),
 		// placer le point d'accroche au centre
 		origin("center"),
 		// placer le texte au centre
 		pos(center()),
 	]);
+	// ajout de plusieurs textes affichés aléatoirement
+	// ici, on lancer une boucle tooutes les ½ secondes
+	loop(0.5, () => {
+		add([
+			// le texte est tiré aléatoirement dans ce tableau
+			text(choose(["UNIL","EPFL","SLI","CDH","GAMELAB","Lettres"]),{
+				width : 800,
+				font : "sink",
+				size : 48
+			}),
+			// la couleur est ajoutée en rgb (red, green, blue)
+			// on tire à chaque fois nombre entre 0 et 255
+			// randi() garantit qu'il s'agit d'un entier
+			// au contraire de rand()
+			color(randi(0,255),randi(0,255),randi(0,255)),
+			origin("center"),
+			pos(randi(0,width()),randi(height()-10,height()-200)),
+		]);
+	})
+
+	// ajout d'un événement pour lancer l'autre scène
 	onKeyPress("space",() =>{
 		// charger la scène "jeu"
 		go("jeu")
@@ -111,7 +143,10 @@ scene("jeu",() => {
 
 	// le texte pour le score
 	add([
-		text(score),
+		text(score,{
+			font : "sink",
+			size : 48
+		}),
 		pos(100,100),
 		origin("center"),
 		z(50),
@@ -122,8 +157,8 @@ scene("jeu",() => {
 		// ajouter à notre composant de score
 	])
 
-	// observer chaque mouvement du paddle et y
-	// associer le mouvement de la souris
+	// vérifier le mouvement du paddle 60 fois par
+	// seconde et y associer le mouvement de la souris
 	onUpdate("paddle", (p) => {
 		p.pos.x = mousePos().x
 	})
@@ -237,8 +272,10 @@ A ce stade, je vous recommande de survoler l'entier
 de la documentation Kaboom (elle est courte !).
 Cela vous donnera un bon aperçu du système.
 
-Et ensuite, pourquoi ne pas afficher les vies ?
-Une image "coeur.png" vous attend dans les assets.
+Et ensuite, pourquoi ne pas commencer par afficher les vies ?
+D'ailleurs, une image "coeur.png" vous attend dans les assets.
 
-Et ensuite, en route pour l'incertitude !
+Et ensuite, vous pourrez vous attacher aux conditions de victoire,
+en faisant la part belle à l'incertitude !
+
 */
