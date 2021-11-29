@@ -1,4 +1,4 @@
-# Laboratoire de réécriture de jeu vidéo (édition 2021)
+![Image_accueil](image_accueil.jpeg)
 
 Ces codes sont fournis par Isaac Pante dans le cadre de l'édition 2021 du [laboratoire de réécriture de jeu vidéo.](https://www.epfl.ch/schools/cdh/fr/lart-et-la-culture/thema-2021-lincertitude/incertitude-et-jeu-video/) Il est organisé par la Section des sciences du langage de l'information de l'UNIL, le Gamelab UNIL-EPFL, le CDH et bénéficie du soutien de GAMEStar.
 
