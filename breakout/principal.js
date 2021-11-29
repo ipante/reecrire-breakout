@@ -57,7 +57,7 @@ scene("accueil", () => {
 	loop(0.5, () => {
 		add([
 			// le texte est tiré aléatoirement dans ce tableau
-			text(choose(["UNIL","EPFL","SLI","CDH","GAMELAB","Lettres"]),{
+			text(choose(["UNIL",,"SLI","GAMELAB","Lettres"]),{
 				width : 800,
 				font : "sink",
 				size : 48

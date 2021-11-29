@@ -81,7 +81,7 @@ scene("accueil", () => {
 	loop(0.5, () => {
 		add([
 			// le texte est tiré aléatoirement dans ce tableau
-			text(choose(["UNIL","EPFL","SLI","CDH","GAMELAB","Lettres"]),{
+			text(choose(["UNIL","SLI","GAMELAB","Lettres"]),{
 				width : 800,
 				font : "sink",
 				size : 48
@@ -137,7 +137,8 @@ scene("jeu",() => {
 			solid(),
 			// lui donner un identifiant
 			// pour les interactions à venir
-			"brique"
+			"brique",
+			z(1),
 		],
 		"x" : () => [
 			sprite("tuile"),
@@ -149,9 +150,20 @@ scene("jeu",() => {
 			// pour associer deux comportements
 			// distincts
 			"brique",
-			"special"
+			"special",
+			z(1)
 		]
 	})
+
+	// ajouter un fond
+	const fond = add([
+		// placer ce rectangle tout au fond
+		z(0),
+		rect(width(),height()),
+		pos(0,0),
+		color(0,0,0)
+	])
+
 	// le palet
 	const palet = add([
 		pos(vec2(width()/2 - 40, height()-40)),
@@ -160,6 +172,7 @@ scene("jeu",() => {
 		origin("center"),
 		area(),
 		"paddle",
+		z(1)
 	])
 
 	// le texte pour le score
@@ -178,11 +191,30 @@ scene("jeu",() => {
 		// ajouter à notre composant de score
 	])
 
-	// vérifier le mouvement du paddle 60 fois par
-	// seconde et y associer le mouvement de la souris
+	// effectuer une action 60 fois par seconde
 	onUpdate("paddle", (p) => {
-		p.pos.x = mousePos().x
-	})
+		// si nous ne sommes pas en mode debug
+		if(!mode_debug){
+			// la balle se déplace en suivant le palet
+			palet.pos.x = mousePos().x
+		}
+		// si nous sommes en mode debug
+		else{
+			// le palet va tout seule à toute vitesse
+			// en adoptant exactement la positiion de la balle
+			vitesse = 1200
+			palet.pos.x = balle.pos.x
+			// le fond change de couleur
+			const t = time() * 10
+			// le fond varie en valeur de rouge
+			// de 127 à 255 et évolue en fonction du temps
+			fond.color.r = wave(127, 255, t)
+			// le fond varie en valeur de bleu
+			// de 127 à 255 et évolue en fonction du temps
+			// le décalage permet de croiser les couleurs
+			fond.color.b = wave(127, 255, t+1)
+		}
+	})		
 
 	// ajouter la balle
 	const balle = add([
@@ -290,21 +322,13 @@ scene("jeu",() => {
 	})
 
 	// mode debug
-	// onKeyPress("d",()=>{
-	// 	if(!mode_debug){
-	// 		console.log("oui");
-	// 		// mode debug : la balle va toute
-	// 		// seule à toute vitesse
-	// 		vitesse = 1200
-	// 		palet.pos.x = balle.pos.x
-	// 		mode_debug = true
-	// 	}
-	// 	else{
-	// 		mode_debug = false
-	// 		// retour à la situation initiale
-	// 		palet.pos.x = mousePos().x
-	// 	}
-	// })
+	onKeyPress("d",()=>{
+		// changer le mode
+		mode_debug ? mode_debug = false : mode_debug = true
+		// masquer la couleur de fond
+		fond.color = rgb(0, 0, 0)
+		fond.opacity = 1
+	})
 })
 
 // déclaration de la scène d'échec
