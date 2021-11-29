@@ -195,6 +195,8 @@ scene("jeu",() => {
 	onUpdate("paddle", (p) => {
 		// si nous ne sommes pas en mode debug
 		if(!mode_debug){
+			// fixer une vitesse normale
+			vitesse = 800
 			// la balle se déplace en suivant le palet
 			palet.pos.x = mousePos().x
 		}
