@@ -1,14 +1,14 @@
 /* Voici le kit de lancement Kaboom js pour cette journée !
 
-Voici quelques ressources pour vous aider
-La documentation de Kaboom : https://kaboomjs.com/
-Des codes d'exemple : https://kaboomjs.com/play?demo=add
+Cette version enrichie ajoute
 
-Kaboom dispose de plusieurs fonctions pour créer de l'alétoire !
-rand(), mais aussi randi(), choose(), chance(), randSeed()...
-Et il y a bien d'autres manières de provoquer de l'incertitude !
+- la gestion de plusieurs niveaux
+- des conditions de victoire
+- une scène de victoire
+- un mode debug
 
-Bon codage !
+Il est recommandé de ne lire cette version qu'une fois
+le kaboom initial bien compris !
 
 Isaac Pante
 
