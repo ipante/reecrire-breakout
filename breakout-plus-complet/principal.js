@@ -245,11 +245,16 @@ scene("jeu",() => {
 		balle.move(balle.velocite.scale(vitesse))
 		// gérer les rebonds sur les murs latéraux...
 		if (balle.pos.x < 0 || balle.pos.x > width()) {
+			// on la contraint aux limites
+			if (balle.pos.x < 0) balle.pos.x = 0;
+      		if (balle.pos.x > width()) balle.pos.x = width();
 			// et renvoyer la balle
 			balle.velocite.x = -balle.velocite.x
 		}
 		// si la balle tape au sommet...
 		if(balle.pos.y < 0){
+			// on la contraint à 0 
+			balle.pos.y = 0;
 			// elle repart dans l'autre sens
 			balle.velocite.y = -balle.velocite.y
 		}
