@@ -292,7 +292,12 @@ scene("jeu",() => {
 	balle.onCollide("brique", (b) => {
 		play("reussite")
 		score++
-		b.destroy()
+		// renvoyer la balle
+		gérerCollision(balle, b);
+
+		// Détruire la brique
+		b.destroy();
+
 		// vérifier si cette brique
 		// était la dernière du plateau
 		if(get('brique').length == 0){
@@ -307,10 +312,6 @@ scene("jeu",() => {
 				go('ohyes');
 			}
 			
-		}
-		else{
-			// renvoyer la balle
-			balle.velocite = dir(balle.pos.angle(b.pos))
 		}
 	})
 	// avec les briques spéciales
@@ -333,6 +334,39 @@ scene("jeu",() => {
 		fond.opacity = 1
 	})
 })
+
+function gérerCollision(balle, brique) {
+	const coté = testerCoté(balle, brique);
+	appliquerRebond(balle, coté);
+}
+
+function testerCoté(balle, brique) {
+	// Tester sur quels coté la collision a eu lieu
+	const briqueXMin = brique.pos.x - brique.width/2 - balle.area.width/2;
+	const briqueXMax = brique.pos.x + brique.width/2 + balle.area.height/2;
+	if (balle.pos.x > briqueXMin && balle.pos.x < briqueXMax) {
+		// Cotés horizontaux
+		return 'horizontal';
+	} else {
+		// Cotés verticaux
+		return 'vertical';
+	}
+}
+
+function appliquerRebond(balle, coté) {
+	// Ce rebond est incomplet, il faudrait ajouter le vecteur de déplacement
+	// (collision.displacement). Dans le cas d'un rebond sur une face
+	// horizontale, une part verticale et -2 parts horizontales.
+	// Nous pouvons négliger ceci tant que la vitesse de la balle reste
+	// raisonnable.
+	if (coté === 'horizontal') {
+		// on inverse la composante verticale de la vélocité
+		balle.velocite.y = -balle.velocite.y;
+	} else {
+		// on inverse la composante horizontale de la vélocité
+		balle.velocite.x = -balle.velocite.x;
+	}
+}
 
 // déclaration de la scène d'échec
 scene("ohno", ({score}) => {
