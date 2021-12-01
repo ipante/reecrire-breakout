@@ -122,7 +122,7 @@ scene("jeu",() => {
 		width : 65,
 		height : 33,
 		// définir où positionner le début de la grille
-		pos : vec2(100, 200),
+		pos : vec2(175, 200),
 		// associer chaque symbole à un composant
 		"=" : () => [
 			// joindre le sprite
@@ -131,6 +131,8 @@ scene("jeu",() => {
 			color(255,0,0),
 			// ajouter une bordure
 			outline(4,10),
+			// Définir son origine (coordonnées de positionnement)
+			origin("center"),
 			// donner une hitbox
 			area(),
 			// rendre l'élément réactif aux collisions
@@ -144,6 +146,7 @@ scene("jeu",() => {
 			sprite("tuile"),
 			color(255,0,255),
 			outline(4,10),
+			origin("center"),
 			area(),
 			solid(),
 			// ici on utilise deux identifiants
@@ -222,12 +225,12 @@ scene("jeu",() => {
 	const balle = add([
 		pos(width()/2,height()-55),
 		// créer un cercle de rayon 16
+		origin("center"),
 		circle(16),
 		outline(4),
 		area({
-			width: 32,
-			height: 32,
-			offset: vec2(-16)
+			width: 26,
+			height: 26,
 		}),
 		{
 			// dir extrait le vecteur de direction
