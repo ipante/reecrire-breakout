@@ -232,6 +232,7 @@ scene("jeu",() => {
 			width: 26,
 			height: 26,
 		}),
+		solid(),
 		{
 			// dir extrait le vecteur de direction
 			// à partir d'un angle donné
