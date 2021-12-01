@@ -316,15 +316,12 @@ scene("jeu",() => {
 	// avec les briques spéciales
 	// grâce à l'identifiant "special"
 	balle.onCollide("special", (b) => {
-		play("reussite")
-		b.destroy()
 		// Kaboom ne gère que le rgb, mais des fonctions
 		// de conversions nous permettent d'utiliser du hsl !
 		palet.color = hsl2rgb((time() * 0.2 + 1 * 0.1) % 1, 0.7, 0.8)
 		// transformer aléatoirement la taille du palet
 		palet.width = randi(50,200)
 		palet.height = randi(20,100)
-		balle.velocite = dir(balle.pos.angle(b.pos))
 	})
 
 	// mode debug
