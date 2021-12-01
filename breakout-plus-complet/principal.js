@@ -60,6 +60,8 @@ const niveaux = [
 
 ]
 
+let niveau_actuel = 0;
+
 // déclaration d'une scène
 // les scènes découpent le jeu
 scene("accueil", () => {
@@ -108,11 +110,9 @@ scene("accueil", () => {
 scene("jeu",() => {
 
 	// initialisation des variables globales
-	// score à zéro, vies à 3 et numéro
-	// de niveau actuel
+	// score à zéro, vies à 3
 	let score = 0
 	let vies = 3
-	let niveau_actuel = 0
 	let vitesse = 800;
 	let mode_debug = false;
 
@@ -295,8 +295,8 @@ scene("jeu",() => {
 			// vérifier s'il y a encore des niveaux
 			if(niveau_actuel <= niveaux.length){
 				// si oui, charger le niveau
-				go('jeu')
 				niveau_actuel++
+				go('jeu')
 			}
 			else{
 				// sinon, envoyer la victoire
