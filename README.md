@@ -12,7 +12,7 @@ Ce projet contient deux versions de Breakout réalisées en Kaboom.js et utilis�
 Vous êtes libre d'utiliser ce code pour vos propres projets de développement ou pour vos ateliers pédagogiques. N'hésitez pas à écrire à isaac.pante@unil.ch pour partager vos usages/développements !
 
 ## Auteur
-Isaac Pante, Maître d'enseignement et de recherche, département des Sciences du langage et de l'information, UNIL.
+[Isaac Pante](http://isaacpante.net/), Maître d'enseignement et de recherche, [département des Sciences du langage et de l'information, UNIL](https://www.unil.ch/sli/fr/home.html).
 
 ___
 
@@ -26,4 +26,4 @@ This project contains two versions of Breakout written in Kaboom.js and used in 
 You are free to use this code for your own development projects or for your educational workshops. Don't hesitate to write to isaac.pante@unil.ch to share your uses/developments!
 
 ## Author
-Isaac Pante, Senior Lecturer, Department of Language and Information Sciences, UNIL.
+[Isaac Pante](http://isaacpante.net/), Senior Lecturer, [Department of Language and Information Sciences, UNIL](https://www.unil.ch/sli/fr/home.html).
