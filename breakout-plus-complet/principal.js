@@ -122,7 +122,7 @@ scene("jeu",() => {
 		width : 65,
 		height : 33,
 		// définir où positionner le début de la grille
-		pos : vec2(100, 200),
+		pos : vec2(175, 200),
 		// associer chaque symbole à un composant
 		"=" : () => [
 			// joindre le sprite
@@ -131,6 +131,8 @@ scene("jeu",() => {
 			color(255,0,0),
 			// ajouter une bordure
 			outline(4,10),
+			// Définir son origine (coordonnées de positionnement)
+			origin("center"),
 			// donner une hitbox
 			area(),
 			// rendre l'élément réactif aux collisions
@@ -144,6 +146,7 @@ scene("jeu",() => {
 			sprite("tuile"),
 			color(255,0,255),
 			outline(4,10),
+			origin("center"),
 			area(),
 			solid(),
 			// ici on utilise deux identifiants
@@ -222,13 +225,14 @@ scene("jeu",() => {
 	const balle = add([
 		pos(width()/2,height()-55),
 		// créer un cercle de rayon 16
+		origin("center"),
 		circle(16),
 		outline(4),
 		area({
-			width: 32,
-			height: 32,
-			offset: vec2(-16)
+			width: 26,
+			height: 26,
 		}),
+		solid(),
 		{
 			// dir extrait le vecteur de direction
 			// à partir d'un angle donné
@@ -288,7 +292,12 @@ scene("jeu",() => {
 	balle.onCollide("brique", (b) => {
 		play("reussite")
 		score++
-		b.destroy()
+		// renvoyer la balle
+		gérerCollision(balle, b);
+
+		// Détruire la brique
+		b.destroy();
+
 		// vérifier si cette brique
 		// était la dernière du plateau
 		if(get('brique').length == 0){
@@ -304,23 +313,16 @@ scene("jeu",() => {
 			}
 			
 		}
-		else{
-			// renvoyer la balle
-			balle.velocite = dir(balle.pos.angle(b.pos))
-		}
 	})
 	// avec les briques spéciales
 	// grâce à l'identifiant "special"
 	balle.onCollide("special", (b) => {
-		play("reussite")
-		b.destroy()
 		// Kaboom ne gère que le rgb, mais des fonctions
 		// de conversions nous permettent d'utiliser du hsl !
 		palet.color = hsl2rgb((time() * 0.2 + 1 * 0.1) % 1, 0.7, 0.8)
 		// transformer aléatoirement la taille du palet
 		palet.width = randi(50,200)
 		palet.height = randi(20,100)
-		balle.velocite = dir(balle.pos.angle(b.pos))
 	})
 
 	// mode debug
@@ -332,6 +334,39 @@ scene("jeu",() => {
 		fond.opacity = 1
 	})
 })
+
+function gérerCollision(balle, brique) {
+	const coté = testerCoté(balle, brique);
+	appliquerRebond(balle, coté);
+}
+
+function testerCoté(balle, brique) {
+	// Tester sur quels coté la collision a eu lieu
+	const briqueXMin = brique.pos.x - brique.width/2 - balle.area.width/2;
+	const briqueXMax = brique.pos.x + brique.width/2 + balle.area.height/2;
+	if (balle.pos.x > briqueXMin && balle.pos.x < briqueXMax) {
+		// Cotés horizontaux
+		return 'horizontal';
+	} else {
+		// Cotés verticaux
+		return 'vertical';
+	}
+}
+
+function appliquerRebond(balle, coté) {
+	// Ce rebond est incomplet, il faudrait ajouter le vecteur de déplacement
+	// (collision.displacement). Dans le cas d'un rebond sur une face
+	// horizontale, une part verticale et -2 parts horizontales.
+	// Nous pouvons négliger ceci tant que la vitesse de la balle reste
+	// raisonnable.
+	if (coté === 'horizontal') {
+		// on inverse la composante verticale de la vélocité
+		balle.velocite.y = -balle.velocite.y;
+	} else {
+		// on inverse la composante horizontale de la vélocité
+		balle.velocite.x = -balle.velocite.x;
+	}
+}
 
 // déclaration de la scène d'échec
 scene("ohno", ({score}) => {
