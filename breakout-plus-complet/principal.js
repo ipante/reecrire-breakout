@@ -60,6 +60,12 @@ const niveaux = [
 
 ]
 
+// initialisation des variables globales
+// score à zéro, vies à 3
+let score = 0
+let vies = 3
+let vitesse = 800;
+let mode_debug = false;
 let niveau_actuel = 0;
 
 // déclaration d'une scène
@@ -108,13 +114,6 @@ scene("accueil", () => {
 
 // déclaration de la scène de jeu
 scene("jeu",() => {
-
-	// initialisation des variables globales
-	// score à zéro, vies à 3
-	let score = 0
-	let vies = 3
-	let vitesse = 800;
-	let mode_debug = false;
 
 	// dessiner un niveau
 	addLevel(niveaux[niveau_actuel], {
@@ -306,15 +305,15 @@ scene("jeu",() => {
 		// vérifier si cette brique
 		// était la dernière du plateau
 		if(get('brique').length == 0){
+			niveau_actuel++
 			// vérifier s'il y a encore des niveaux
 			if(niveau_actuel < niveaux.length-1){
 				// si oui, charger le niveau
-				niveau_actuel++
 				go('jeu')
 			}
 			else{
 				// sinon, envoyer la victoire
-				go('ohyes');
+				go('ohyes',{score : score});
 			}
 			
 		}
