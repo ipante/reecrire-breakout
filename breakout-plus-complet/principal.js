@@ -307,7 +307,7 @@ scene("jeu",() => {
 		// était la dernière du plateau
 		if(get('brique').length == 0){
 			// vérifier s'il y a encore des niveaux
-			if(niveau_actuel <= niveaux.length){
+			if(niveau_actuel < niveaux.length){
 				// si oui, charger le niveau
 				niveau_actuel++
 				go('jeu')
