@@ -8,6 +8,8 @@ Ce projet contient deux versions de Breakout réalisées en Kaboom.js et utilis�
 - breakout-initial : divisé en trois scènes (accueil, jeu, game over), ce jeu contient une mécanique de casse-brique rudimentaire, un système de score, deux types de briques et des conditions d'échec.
 - Breakout-plus-complet : cette version ajoute le changement de niveau, des conditions de victoire, un mode debug (touche "d") et une meilleure gestion des rebonds (merci @loiccattani).
 
+Le dossier BreaKaboom contient la version publiée sur itch.io.
+
 ## Licence
 Vous êtes libre d'utiliser ce code pour vos propres projets de développement ou pour vos ateliers pédagogiques. N'hésitez pas à écrire à isaac.pante@unil.ch pour partager vos usages/développements !
 
@@ -21,6 +23,8 @@ This project contains two versions of Breakout written in Kaboom.js and used in 
 
 - breakout-initial: divided into three scenes (welcome, game, game over), this game contains a rudimentary brick-breaking mechanic, a scoring system, two types of bricks and failure conditions.
 - breakout-plus-complet : this version adds level change, victory conditions, a debug mode ("d" key) and a better bounce management (thanks @loiccattani).
+
+The BreaKaboom folder contains the itch.io version.
 
 ## License
 You are free to use this code for your own development projects or for your educational workshops. Don't hesitate to write to isaac.pante@unil.ch to share your uses/developments!
