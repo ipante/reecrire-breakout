@@ -127,8 +127,7 @@ scene("jeu",() => {
 		// associer chaque symbole à un composant
 		"=" : () => [
 			// joindre le sprite
-			sprite("tuile"),
-			scale(0.7),
+			sprite("tuile",{width : 42, height: 22}),
 			// modifier sa couleur
 			color(255,0,0),
 			// ajouter une bordure
@@ -145,8 +144,7 @@ scene("jeu",() => {
 			z(1),
 		],
 		"x" : () => [
-			sprite("tuile"),
-			scale(0.7),
+			sprite("tuile",{width : 42, height: 22}),
 			color(255,0,255),
 			outline(4,10),
 			origin("center"),
