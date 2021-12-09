@@ -279,7 +279,7 @@ scene("jeu",() => {
 				// appel de la scène d'échec
 				// et passage d'un paramètre qui sera récupéré
 				// dans cette scène
-				go("ohno",{score : score})
+				go("ohno", score)
 			}
 
 		}
@@ -308,13 +308,13 @@ scene("jeu",() => {
 		if(get('brique').length == 0){
 			niveau_actuel++
 			// vérifier s'il y a encore des niveaux
-			if(niveau_actuel > niveaux.length-1){
+			if(niveau_actuel < niveaux.length){
 				// si oui, charger le niveau
 				go('jeu')
 			}
 			else{
 				// sinon, envoyer la victoire
-				go('ohyes');
+				go('ohyes',score);
 			}
 			
 		}
@@ -374,7 +374,7 @@ function appliquerRebond(balle, coté) {
 }
 
 // déclaration de la scène d'échec
-scene("ohno", ({score}) => {
+scene("ohno", (score) => {
 	add([
 		text(`You scored ${score} points !`, {
 			width : width(),
@@ -389,7 +389,7 @@ scene("ohno", ({score}) => {
 })
 
 // déclaration de la scène de victoire
-scene("ohyes", ({score}) => {
+scene("ohyes", (score) => {
 	add([
 		text(`You won with ${score} points !`,{
 			width : width(),
