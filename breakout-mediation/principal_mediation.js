@@ -23,7 +23,7 @@ scene("accueil", () => {
    ]);
    loop(0.5, () => {
       add([
-         text(choose(["UNIL", "EPFL", "SLI", "CDH", "GAMELAB", "Lettres"]), {
+         text(choose(["NUMERIK", "GAMES", "SLI", "Lettres", "GAMELAB"]), {
             width: 800,
             font: "sink",
             size: 48,
