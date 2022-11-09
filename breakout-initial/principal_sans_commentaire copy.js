@@ -43,7 +43,7 @@ scene("accueil", () => {
 scene("jeu", () => {
   let score = 0;
   let vies = 3;
-  let vitesse = 800;
+  let vitesse = 1800;
 
   // 3 : ajouter le palet
 
