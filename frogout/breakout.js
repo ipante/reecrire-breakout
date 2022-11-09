@@ -158,12 +158,16 @@ scene("jeu", () => {
 })
 scene("gameover", ({ score_final }) => {
     add([
-        text("Vous avez perdu ! Votre score est de " + score_final + " points !", {
+        text("Vous avez perdu ! Votre score est de " + score_final + " points !\nAppuyez sur la barre d'espace pour recommencer.", {
             width: 800,
         }),
         origin("center"),
         pos(center())
     ])
+
+    onKeyPress("space", () => {
+        go("accueil");
+    })
 })
 
 go("accueil")
