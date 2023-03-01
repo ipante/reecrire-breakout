@@ -4,7 +4,7 @@ kaboom({
     height: 800,
 })
 
-loadRoot("/assets/");
+loadRoot("assets/");
 
 loadSprite("tuile", "images/tuile.png");
 
