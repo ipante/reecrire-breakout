@@ -1,9 +1,11 @@
+// Initialisation
 kaboom({
     background: [0, 0, 0],
     width: 1200,
     height: 800,
 })
 
+// Chargement des assets
 loadRoot("assets/");
 
 loadSprite("tuile", "images/tuile.png");
@@ -14,10 +16,13 @@ loadSound("echec", "audio/echec.wav");
 
 // Scene d'accueil
 scene("accueil", () => {
+    // Lancement musique
     const musique = play("musique", {
         volume: 0.8,
         loop: true,
     })
+
+    // Texte d'accueil
     add([
         text("Appuyez sur la barre d'espace pour jouer !", {
             width: 800,
@@ -25,6 +30,8 @@ scene("accueil", () => {
         anchor("center"),
         pos(center()),
     ]);
+
+    // Interaction avec la barre d'espace
     onKeyPress("space", () => {
         go("jeu");
         musique.paused = true;
@@ -108,12 +115,16 @@ scene("jeu", () => {
     // Mise a jour de la balle
     balle.onUpdate(() => {
         balle.move(balle.velocite.scale(vitesse));
+
+        // "Collisions" avec les bords
         if (balle.pos.x < 0 || balle.pos.x > width()) {
             balle.velocite.x = -balle.velocite.x;
         }
         if (balle.pos.y < 0) {
             balle.velocite.y = -balle.velocite.y;
         }
+
+        // Echec (balle qui passe derriere le paddle)
         if (balle.pos.y > height()) {
             shake(30);
             play("echec");
@@ -122,6 +133,8 @@ scene("jeu", () => {
             vitesse = 800;
             balle.velocite = Vec2.fromAngle(rand(-60, -40));
             vies--;
+
+            // Perdu : on lance la scene "gameover" et on passe le score
             if (vies == 0) {
                 go("gameover", { score_final: score })
             }
@@ -167,6 +180,7 @@ scene("jeu", () => {
 
 // Scene gameover
 scene("gameover", ({ score_final }) => {
+    // Texte de gameover
     add([
         text(`Perdu ! Votre score est de ${score_final} !`, {
             width: 800,
@@ -174,6 +188,8 @@ scene("gameover", ({ score_final }) => {
         anchor("center"),
         pos(center()),
     ]);
+
+    // Interaction : rediriger vers l'accueil
     onKeyPress("space", () => {
         go("accueil");
     })
