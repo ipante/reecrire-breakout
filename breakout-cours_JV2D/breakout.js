@@ -43,7 +43,7 @@ scene("jeu", () => {
     // variables globales pour une partie
     let score = 0;
     let vies = 3;
-    let vitesse = 800;
+    let vitesse = 400;
 
     // Creation du niveau
     addLevel(
@@ -66,6 +66,7 @@ scene("jeu", () => {
                     color(255, 0, 0),
                     outline(4, 10),
                     area(),
+                    anchor("center"),
                     body({ isSolid: true }),
                     "brique"
                 ],
@@ -74,6 +75,7 @@ scene("jeu", () => {
                     color(255, 0, 255),
                     outline(4, 10),
                     area(),
+                    anchor("center"),
                     body({ isSolid: true }),
                     "brique",
                     "special"
@@ -102,10 +104,10 @@ scene("jeu", () => {
         pos(width() / 2, height() - 55),
         circle(10),
         outline(4),
+        anchor("center"),
         area({
-            width: 32,
-            height: 32,
-            offset: vec2(-16)
+            width: 20,
+            height: 20,
         }),
         {
             velocite: Vec2.fromAngle(rand(-60, -40)),
@@ -118,9 +120,11 @@ scene("jeu", () => {
 
         // "Collisions" avec les bords
         if (balle.pos.x < 0 || balle.pos.x > width()) {
+            balle.pos.x = balle.pos.x < 0 ? 0 : width()
             balle.velocite.x = -balle.velocite.x;
         }
         if (balle.pos.y < 0) {
+            balle.pos.y = 0
             balle.velocite.y = -balle.velocite.y;
         }
 
@@ -130,7 +134,7 @@ scene("jeu", () => {
             play("echec");
             balle.pos.x = width() / 2;
             balle.pos.y = height() - 55;
-            vitesse = 800;
+            vitesse = 400;
             balle.velocite = Vec2.fromAngle(rand(-60, -40));
             vies--;
 
@@ -143,20 +147,21 @@ scene("jeu", () => {
 
     // Collisions
     balle.onCollide("palet", (p) => {
-        vitesse += 60;
-        balle.velocite = Vec2.fromAngle(balle.pos.angle(p.pos));
+        vitesse += 25;
+        balle.velocite.y = -balle.velocite.y;
     })
 
     balle.onCollide("brique", (b) => {
         play("reussite");
         b.destroy();
         score++;
-        balle.velocite = Vec2.fromAngle(balle.pos.angle(b.pos));
+        balle.velocite.x = (balle.pos.x > b.pos.x + 132.5 || balle.pos.x < b.pos.x + (100-32.5)) ? -balle.velocite.x : balle.velocite.x
+        balle.velocite.y = balle.pos.y > b.pos.y + 216.5 || balle.pos.y < b.pos.y + (200-16.5) ? -balle.velocite.y : balle.velocite.y
     })
 
     balle.onCollide("special", (b) => {
         score++;
-        palet.color = hsl2rgb((time() * 0.2 + 1 * 0.1) % 1, 0.7, 0.8);
+        palet.color = rgb(Math.random()*255, Math.random()*255, Math.random()*255)
         palet.width = randi(50, 200);
         palet.height = randi(20, 100);
     })
